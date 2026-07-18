@@ -48,7 +48,7 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="mt-10 flex items-center gap-3 justify-center"
           >
-            <Button size="lg" onClick={() => document.getElementById('demo')?.scrollIntoView({ behavior: 'smooth' })}>
+            <Button size="lg" onClick={() => document.getElementById('demo')?.scrollIntoView()}>
               Start Building
               <span className="text-white/60 text-sm font-normal ml-1">开始创造</span>
               <ArrowRight className="w-4 h-4 ml-1" />
