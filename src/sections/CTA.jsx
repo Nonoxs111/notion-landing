@@ -3,6 +3,7 @@ import { motion, useInView } from 'framer-motion';
 import Button from '../components/Button';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import Footer from '../components/Footer';
+import { scrollToElement } from '../utils/scroll';
 
 export default function CTA() {
   const ref = useRef(null);
@@ -37,7 +38,7 @@ export default function CTA() {
             transition={{ duration: 0.5, delay: 0.3 }}
             className="mt-10 flex items-center gap-3 justify-center"
           >
-            <Button size="lg" onClick={() => document.getElementById('demo')?.scrollIntoView()}>
+            <Button size="lg" onClick={() => scrollToElement('demo')}>
               <Sparkles className="w-4 h-4" />
               Start Building
               <span className="text-white/60 text-sm font-normal ml-1">开始创造</span>

@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import ProductDemo from '../components/demo/ProductDemo';
 import Button from '../components/Button';
 import { ArrowRight } from 'lucide-react';
+import { scrollToElement } from '../utils/scroll';
 
 export default function Hero() {
   return (
@@ -48,7 +49,7 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="mt-10 flex items-center gap-3 justify-center"
           >
-            <Button size="lg" onClick={() => document.getElementById('demo')?.scrollIntoView()}>
+            <Button size="lg" onClick={() => scrollToElement('demo')}>
               Start Building
               <span className="text-white/60 text-sm font-normal ml-1">开始创造</span>
               <ArrowRight className="w-4 h-4 ml-1" />

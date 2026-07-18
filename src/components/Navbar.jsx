@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Button from './Button';
+import { scrollToElement } from '../utils/scroll';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -36,7 +37,7 @@ export default function Navbar() {
         </a>
 
         {/* CTA */}
-        <Button size="sm" onClick={() => document.getElementById('demo')?.scrollIntoView()}>
+        <Button size="sm" onClick={() => scrollToElement('demo')}>
           Start Building
           <span className="text-white/60 text-xs font-normal ml-1 hidden sm:inline">开始创造</span>
         </Button>
