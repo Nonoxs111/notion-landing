@@ -4,11 +4,11 @@ import SectionBadge from '../components/SectionBadge';
 import { FileText, Database, Workflow, Layout, Sparkles } from 'lucide-react';
 
 const pillars = [
-  { icon: FileText, label: 'Information', desc: '结构化信息管理', color: 'border-blue-200 bg-blue-50/50' },
-  { icon: Database, label: 'Data', desc: '灵活数据建模', color: 'border-emerald-200 bg-emerald-50/50' },
-  { icon: Workflow, label: 'Workflow', desc: '可视化工作流', color: 'border-violet-200 bg-violet-50/50' },
-  { icon: Layout, label: 'Application', desc: '模块化应用组合', color: 'border-amber-200 bg-amber-50/50' },
-  { icon: Sparkles, label: 'Intelligence', desc: 'AI 智能驱动', color: 'border-coral/20 bg-coral/5' },
+  { icon: FileText, label: 'Information', desc: '结构化信息管理' },
+  { icon: Database, label: 'Data', desc: '灵活数据建模' },
+  { icon: Workflow, label: 'Workflow', desc: '可视化工作流' },
+  { icon: Layout, label: 'Application', desc: '模块化应用组合' },
+  { icon: Sparkles, label: 'Intelligence', desc: 'AI 智能驱动' },
 ];
 
 export default function Solution() {
@@ -45,9 +45,9 @@ export default function Solution() {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.4, delay: 0.3 + i * 0.1 }}
               whileHover={{ y: -4 }}
-              className={`flex flex-col items-center gap-3 p-5 rounded-xl border ${pillar.color} transition-all duration-300 cursor-default`}
+              className="flex flex-col items-center gap-3 p-5 rounded-xl border border-border-light bg-white hover:border-coral/15 hover:bg-coral/[0.02] transition-all duration-300 cursor-default"
             >
-              <pillar.icon className="w-6 h-6 text-ink-secondary" />
+              <pillar.icon className="w-6 h-6 text-coral/70" />
               <span className="text-sm font-semibold text-ink">{pillar.label}</span>
               <span className="text-xs text-ink-muted">{pillar.desc}</span>
             </motion.div>
