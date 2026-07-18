@@ -26,10 +26,10 @@ const BLOCKS = [
         </div>
         {/* Table rows */}
         {[
-          ['Design system', '✅ Done', 'Li Wei', 'Jul 12'],
-          ['User auth flow', '🔄 In progress', 'Wang Fang', 'Jul 18'],
-          ['API docs', '📋 Review', 'Zhang Yu', 'Jul 20'],
-          ['Landing page', '🔄 In progress', 'Li Wei', 'Jul 22'],
+          ['Design system', 'Done', 'Li Wei', 'Jul 12'],
+          ['User auth flow', 'In progress', 'Wang Fang', 'Jul 18'],
+          ['API docs', 'Review', 'Zhang Yu', 'Jul 20'],
+          ['Landing page', 'In progress', 'Li Wei', 'Jul 22'],
         ].map((row, i) => (
           <div key={i} className="grid grid-cols-4 gap-px bg-border-light text-[11px]">
             {row.map((cell, j) => (
@@ -112,19 +112,33 @@ const BLOCKS = [
     label: 'Document',
     desc: 'Rich text pages & wikis',
     preview: () => (
-      <div className="space-y-2.5">
-        <div className="w-2/3 h-4 bg-ink/85 rounded-sm" />
-        <div className="space-y-1.5">
-          <div className="w-full h-2 bg-ink/8 rounded-sm" />
-          <div className="w-full h-2 bg-ink/8 rounded-sm" />
-          <div className="w-5/6 h-2 bg-ink/8 rounded-sm" />
-          <div className="w-full h-2 bg-ink/8 rounded-sm" />
-          <div className="w-3/4 h-2 bg-ink/8 rounded-sm" />
-        </div>
-        <div className="flex items-center gap-2 mt-3">
-          <div className="w-4 h-4 rounded bg-coral/20" />
-          <span className="text-[11px] text-ink-secondary">Task database</span>
-          <span className="text-[10px] text-ink-muted">— linked</span>
+      <div className="space-y-3">
+        {/* Title */}
+        <h3 className="text-base font-bold text-ink">Project Overview</h3>
+
+        {/* Text paragraph */}
+        <p className="text-[11px] text-ink-secondary leading-relaxed">
+          This workspace tracks the Q3 product launch. All tasks, timelines, and documentation live here as connected blocks — not separate tools.
+        </p>
+
+        {/* H2 heading */}
+        <h4 className="text-[13px] font-semibold text-ink mt-3">Key Objectives</h4>
+
+        {/* Bullet list */}
+        <ul className="space-y-1 ml-1">
+          {['Ship the new dashboard by Aug 15', 'Complete user testing with 50 participants', 'Publish API documentation v2'].map((item, i) => (
+            <li key={i} className="flex items-start gap-2 text-[11px] text-ink-secondary">
+              <span className="mt-0.5 w-1 h-1 rounded-full bg-coral/60 flex-shrink-0" />
+              {item}
+            </li>
+          ))}
+        </ul>
+
+        {/* Linked database reference */}
+        <div className="flex items-center gap-2 mt-3 p-2.5 rounded-lg border border-coral/10 bg-coral/[0.02]">
+          <Table2 className="w-3.5 h-3.5 text-coral/60" />
+          <span className="text-[11px] text-ink-secondary font-medium">Tasks database</span>
+          <span className="text-[10px] text-ink-muted">↗ linked inline</span>
         </div>
       </div>
     ),
@@ -192,9 +206,9 @@ export default function ProductDemo() {
   const [dragOver, setDragOver] = useState(false);
   const canvasRef = useRef(null);
 
-  // Drag from palette → canvas
+  // Drag from palette → canvas — pass only id, look up full definition on drop
   const handleDragStart = useCallback((e, blockDef) => {
-    e.dataTransfer.setData('application/block', JSON.stringify(blockDef));
+    e.dataTransfer.setData('text/plain', blockDef.id);
     e.dataTransfer.effectAllowed = 'copy';
   }, []);
 
@@ -205,25 +219,29 @@ export default function ProductDemo() {
   }, []);
 
   const handleDragLeave = useCallback((e) => {
-    // Only set false when actually leaving the canvas
     if (e.currentTarget.contains(e.relatedTarget)) return;
     setDragOver(false);
+  }, []);
+
+  const addBlockById = useCallback((blockId) => {
+    const def = BLOCKS.find((b) => b.id === blockId);
+    if (!def) return;
+    const instanceId = `${def.id}-${Date.now()}`;
+    setCanvasBlocks((prev) => [...prev, { ...def, instanceId }]);
   }, []);
 
   const handleDrop = useCallback((e) => {
     e.preventDefault();
     setDragOver(false);
-    const data = e.dataTransfer.getData('application/block');
-    if (!data) return;
-    const blockDef = JSON.parse(data);
-    const id = `${blockDef.id}-${Date.now()}`;
-    setCanvasBlocks((prev) => [...prev, { ...blockDef, instanceId: id }]);
-  }, []);
+    const blockId = e.dataTransfer.getData('text/plain');
+    if (!blockId) return;
+    addBlockById(blockId);
+  }, [addBlockById]);
 
-  // Click to add (fallback)
+  // Click to add
   const addBlock = useCallback((blockDef) => {
-    const id = `${blockDef.id}-${Date.now()}`;
-    setCanvasBlocks((prev) => [...prev, { ...blockDef, instanceId: id }]);
+    const instanceId = `${blockDef.id}-${Date.now()}`;
+    setCanvasBlocks((prev) => [...prev, { ...blockDef, instanceId }]);
   }, []);
 
   const removeBlock = useCallback((instanceId) => {
