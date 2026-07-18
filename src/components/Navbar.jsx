@@ -36,7 +36,7 @@ export default function Navbar() {
         </a>
 
         {/* CTA */}
-        <Button size="sm">
+        <Button size="sm" onClick={() => document.getElementById('demo')?.scrollIntoView({ behavior: 'smooth' })}>
           Start Building
           <span className="text-white/60 text-xs font-normal ml-1 hidden sm:inline">开始创造</span>
         </Button>

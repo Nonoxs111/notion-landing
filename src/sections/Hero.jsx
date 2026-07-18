@@ -48,7 +48,7 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="mt-10 flex items-center gap-3 justify-center"
           >
-            <Button size="lg">
+            <Button size="lg" onClick={() => document.getElementById('demo')?.scrollIntoView({ behavior: 'smooth' })}>
               Start Building
               <span className="text-white/60 text-sm font-normal ml-1">开始创造</span>
               <ArrowRight className="w-4 h-4 ml-1" />
@@ -61,7 +61,8 @@ export default function Hero() {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.5, ease: 'easeOut' }}
-          className="w-full mt-16 md:mt-20"
+          className="w-full mt-16 md:mt-20 scroll-mt-24"
+          id="demo"
         >
           <ProductDemo />
         </motion.div>
